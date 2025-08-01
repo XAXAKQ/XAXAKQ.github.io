@@ -1,0 +1,56 @@
+pip install flask
+/proje
+  ├── app.py
+  ├── templates/
+       ├── index.html
+       ├── secret.html
+  from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+# Basit sabit şifre (daha gelişmiş için veritabanı kullanılır)
+SECRET_PASSWORD = "2007200844"
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    error = None
+    if request.method == "POST":
+        sifre = request.form.get("password")
+        if sifre == SECRET_PASSWORD:
+            return redirect(url_for("secret"))
+        else:
+            error = "Şifre yanlış. Tekrar deneyin."
+    return render_template("index.html", error=error)
+
+@app.route("/secret")
+def secret():
+    return render_template("secret.html")
+
+if __name__ == "__main__":<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Giriş Sayfası</title>
+</head>
+<body>
+    <h1>Şifre ile giriş</h1>
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST">
+        <input type="password" name="password" placeholder="Şifreyi girin" required />
+        <button type="submit">Giriş</button>
+    </form>
+</body>
+</html><!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Gizli Sayfa</title>
+</head>
+<body>
+    <h1>Hoşgeldiniz! Burası gizli sayfa.</h1>
+    <p>Bu içerik sadece doğru şifre girenlere gösterilir.</p>
+</body>
+</html>python app.py
+    app.run(debug=True)
