@@ -1,0 +1,38 @@
+index.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gizli Sayfa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
+  <script>
+    function girisYap() {
+      var sifre = document.getElementById("sifre").value;
+      if (sifre === "dead123") {
+        document.getElementById("giris").style.display = "none";
+        document.getElementById("icerik").style.display = "block";
+      } else {
+        alert("Yanlış şifre!");
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="giris">
+    <h2>Bu sayfa gizlidir</h2>
+    <input type="password" id="sifre" placeholder="Şifreyi girin">
+    <button onclick="girisYap()">Giriş</button>
+  </div>
+
+  <div id="icerik" style="display: none;">
+    <h1>Hoş geldin!</h1>
+    <p>Bu gizli içeriği sadece doğru şifreyle görebilirsin.</p>
+  </div>
+</body>
+</html>
